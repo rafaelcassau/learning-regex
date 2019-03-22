@@ -14,7 +14,7 @@ The purpouse this repository is to maintain some python common regex examples
     \S    - Not whitespace (space, tab, newline)
 
 ## Anchors
-does not match any characters, but identify some positions like
+Anchors doesn't match any characters, but identify some positions like
 new lines, before or after a space, starts with or ends with,
 these special characters are word boundaries characters
 
