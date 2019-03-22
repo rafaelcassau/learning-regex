@@ -17,6 +17,7 @@ The purpouse this repository is to maintain some python common regex examples
 does not match any characters, but identify some positions like
 new lines, before or after a space, starts with or ends with,
 these special characters are word boundaries characters
+
     \b    - Word boundary (indicated for white space or non alphanumeric character like new lines)
     \B    - Not a word boundary
     ^     - Beginning of a string
