@@ -6,7 +6,7 @@ The purpouse this repository is to maintain some python common regex examples
 
 ## Matches
     .     - Any character except new line
-    \d    - Digit (0-9)]
+    \d    - Digit (0-9)
     \D    - Not a digit (0-9)
     \w    - Word character (a-z, A-Z, 0-9, _)
     \W    - Not a word character
