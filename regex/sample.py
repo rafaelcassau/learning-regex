@@ -1,37 +1,8 @@
+""" 
+"""
+
+
 import re
-
-"""
-Matches
-
-.     - Any character except new line
-\d    - Digit (0-9)]
-\D    - Not a digit (0-9)
-\w    - Word character (a-z, A-Z, 0-9, _)
-\W    - Not a word character
-\s    - Whitespace (space, tab, newline)
-\S    - Not whitespace (space, tab, newline)
-
-Anchors - does not match any characters, but identify some positions like
-new lines, before or after a space, starts with or ends with,
-these especial characters are word boundaries characters
-
-\b    - Word boundary (indicated for white space or non alphanumeric character like new lines)
-\B    - Not a word boundary
-^     - Beginning of a string
-$     - End of a string
-
-[]    - Matches characters in brackets
-[^ ]  - Matches characters NOT in
-|     - Either Or
-( )   - Group
-
-Quantifiers
-*     - 0 or more
-+     - 1 or more
-?     - 0 or one
-{3}   - Exact number
-{3,4} - Range of numbers (Minimum, Maximum) 
-"""
 
 
 text_to_search = '''
@@ -46,8 +17,8 @@ MetaCharacteres (Need to be escaped):
 
 coreyms.com
 
-321-555-4321
-123.555.1234
++55 (16) 91122-1134
++55 (16) 91122-1134
 
 Mr. Schafer
 Mr Smith
@@ -61,7 +32,7 @@ sentence = 'Start a sentence with a middle Start and middle end and then bring i
 
 
 def matcher(term, text_to_search):
-    print(f'Searching for {term}.')
+    print(f'Looking for {term}')
 
     count = 0
     pattern = re.compile(term)
@@ -70,7 +41,7 @@ def matcher(term, text_to_search):
         print(match)
         count += 1
     
-    print(f'Matched {count} items.')
+    print(f'Matched {count} items.\n')
     return count
 
 
@@ -195,3 +166,11 @@ if __name__ == '__main__':
     test_simple_should_match_social_number()
     test_simple_should_match_exactly_social_number_with_period()
     test_simple_should_match_exactly_social_number_with_score()
+
+
+# TODO
+# findall
+# match
+# search
+# sub
+# flags re.compile(r'start', re.IGNORECASE)
