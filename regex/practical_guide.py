@@ -182,31 +182,47 @@ def test_should_match_all_urls_with_re_group():
 	assert matches[3].group(3) == '.gov'
 
 
-def test_should_replace_group_two_by_group_three_with_re_sub():
-	content = '''
-	https://www.google.com
-	http://coreyms.com
-	https://youtube.com
-	https://www.nasa.gov
-	'''
-	pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
-	
-	# replace group(2) "www." optional by group(3) "domain-name"
-	# the final string is without "http://" and "https://" prefix because this pattern
-	# is out of the group's scope
-	replaced_urls = pattern.sub(r'\2\3', content)
-	print(replaced_urls)
+def test_should_match_all_urls_with_re_group_and_findall_method():
+    content = '''
+    https://www.google.com
+    http://coreyms.com
+    https://youtube.com
+    https://www.nasa.gov
+    '''
+    pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+    matches = pattern.findall(content)
 
-	assert replaced_urls == '''
-	google.com
-	coreyms.com
-	youtube.com
-	nasa.gov
-	'''
+    assert matches[0] == ('www.', 'google', '.com')
+    assert matches[1] == ('', 'coreyms', '.com')
+    assert matches[2] == ('', 'youtube', '.com')
+    assert matches[3] == ('www.', 'nasa', '.gov')
+
+
+def test_should_replace_group_two_by_group_three_with_re_sub():
+    content = '''
+    https://www.google.com
+    http://coreyms.com
+    https://youtube.com
+    https://www.nasa.gov
+    '''
+    pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+    
+    # replace group(2) "www." optional by group(3) "domain-name"
+    # the final string is without "http://" and "https://" prefix because this pattern
+    # is out of the group's scope
+    replaced_urls = pattern.sub(r'\2\3', content)
+    print(replaced_urls)
+
+    assert replaced_urls == '''
+    google.com
+    coreyms.com
+    youtube.com
+    nasa.gov
+    '''
 
 
 if __name__ == '__main__':
-	# file
+    # file
 	test_should_match_phone_numbers_without_9_prefix()
 	test_should_match_phone_numbers_with_9_prefix()
 	test_should_match_phone_numbers()
@@ -222,4 +238,5 @@ if __name__ == '__main__':
 	test_should_match_all_prefix_with_regex_groups_more_readble()
 	test_should_match_all_valid_emails()
 	test_should_match_all_urls_with_re_group()
+	test_should_match_all_urls_with_re_group_and_findall_method()
 	test_should_replace_group_two_by_group_three_with_re_sub()

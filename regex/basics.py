@@ -104,10 +104,10 @@ def test_simple_findall_method_does_match_in_the_whole_text_not_found():
 
 def test_simple_findall_method_does_match_in_the_whole_text_with_ignore_case_flag():
     pattern = re.compile(r'string', re.IGNORECASE)
-    matches = pattern.findall('that it is a string, string it is')
+    matches = pattern.findall('that it is a STRING, STRING it is')
     
     print(matches)
-    assert matches == ['string', 'string']
+    assert matches == ['STRING', 'STRING']
 
 
 # pattern.finditer
@@ -139,7 +139,7 @@ def test_simple_finditer_method_does_match_in_the_whole_text_not_found():
 
 def test_simple_finditer_method_does_match_in_the_whole_text_with_ignore_case_flag():
     pattern = re.compile(r'string', re.IGNORECASE)
-    matches = pattern.finditer('that it is a string, string it is')
+    matches = pattern.finditer('that it is a STRING, STRING it is')
     
     count = 0
     for match in matches:

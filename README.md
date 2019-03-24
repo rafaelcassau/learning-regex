@@ -78,7 +78,6 @@ def test_simple_match_method():
     pattern = re.compile(r'string')
     match = pattern.match('string, that it is')
 
-    print(match)
     assert match.group() == 'string'
     assert match.span() == (0, 6)
     assert match.start() == 0
@@ -89,7 +88,6 @@ def test_simple_match_method_does_not_match_in_the_middle_of_text():
     pattern = re.compile(r'string')
     match = pattern.match('that it is a string')
 
-    print(match)
     assert match is None
 
 
@@ -100,7 +98,6 @@ def test_simple_search_method():
     pattern = re.compile(r'string')
     match = pattern.search('string, that it is')
 
-    print(match)
     assert match.group() == 'string'
     assert match.span() == (0, 6)
     assert match.start() == 0
@@ -111,7 +108,6 @@ def test_simple_search_method_does_match_in_the_middle_of_text():
     pattern = re.compile(r'string')
     match = pattern.search('that it is a string')
 
-    print(match)
     assert match.group() == 'string'
     assert match.span() == (13, 19)
     assert match.start() == 13
@@ -122,7 +118,6 @@ def test_simple_search_method_does_match_in_the_middle_of_text_just_one_time():
     pattern = re.compile(r'string')
     match = pattern.search('that it is a string, string it is')
 
-    print(match)
     assert match.group() == 'string'
     assert match.span() == (13, 19)
     assert match.start() == 13
@@ -136,7 +131,6 @@ def test_simple_findall_method_does_match_in_the_whole_text():
     pattern = re.compile(r'string')
     matches = pattern.findall('that it is a string, string it is')
     
-    print(matches)
     assert matches == ['string', 'string']
 
 
@@ -144,20 +138,42 @@ def test_simple_findall_method_does_match_in_the_whole_text_not_found():
     pattern = re.compile(r'string')
     matches = pattern.findall('that it is a STRING, STRING it is')
     
-    print(matches)
     assert matches == []
 
 
 def test_simple_findall_method_does_match_in_the_whole_text_with_ignore_case_flag():
     pattern = re.compile(r'string', re.IGNORECASE)
-    matches = pattern.findall('that it is a string, string it is')
+    matches = pattern.findall('that it is a STRING, STRING it is')
     
-    print(matches)
-    assert matches == ['string', 'string']
+    assert matches == ['STRING', 'STRING']
 ```
 
 ## Real world examples
 ```python
+def test_should_match_phone_numbers():
+    """
+    +55 (16) 1122-1213
+    +55 (16) 91122-1213
+    ...
+    """
+    content = read_file()
+    match_count = matcher(r'\+\d{2}\s\(\d{2}\)\s\d{4,5}[-.]\d{4}', content)
+    assert match_count == 100
+
+
+def test_should_match_phone_numbers_ends_with_0_or_1():
+    """
+    +55 (16) 1122-1210
+    +55 (16) 91122-1210
+    +55 (16) 1122-1211
+    +55 (16) 91122-1211
+    ...
+    """
+    content = read_file()
+    match_count = matcher(r'\+\d{2}\s\(\d{2}\)\s\d{4,5}[-.]\d{3}[01]', content)
+    assert match_count == 20
+
+
 def test_should_match_all_prefix_with_regex_groups_more_readble():
     content = '''
     Mr. Schafer
@@ -185,64 +201,43 @@ def test_should_match_all_valid_emails():
     assert match_count == 4
 
 
-def test_should_match_all_urls_with_re_group():
-	content = '''
-	https://www.google.com
-	http://coreyms.com
-	https://youtube.com
-	https://www.nasa.gov
-	'''
-	pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
-	matches = list(pattern.finditer(content))
+def test_should_match_all_urls_with_re_group_and_findall_method():
+    content = '''
+    https://www.google.com
+    http://coreyms.com
+    https://youtube.com
+    https://www.nasa.gov
+    '''
+    pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+    matches = pattern.findall(content)
 
-	count = 0
-	for match in matches:
-		print(match)
-		count += 1
-	print(f'Matched {count} items.')
-
-	assert matches[0].group(0) == 'https://www.google.com'  # group(0) always the whole match
-	assert matches[0].group(1) == 'www.'
-	assert matches[0].group(2) == 'google'
-	assert matches[0].group(3) == '.com'
-
-	assert matches[1].group(0) == 'http://coreyms.com'  # group(0) always the whole match
-	assert matches[1].group(1) == None
-	assert matches[1].group(2) == 'coreyms'
-	assert matches[1].group(3) == '.com'
-
-	assert matches[2].group(0) == 'https://youtube.com'  # group(0) always the whole match
-	assert matches[2].group(1) == None
-	assert matches[2].group(2) == 'youtube'
-	assert matches[2].group(3) == '.com'
-
-	assert matches[3].group(0) == 'https://www.nasa.gov'  # group(0) always the whole match
-	assert matches[3].group(1) == 'www.'
-	assert matches[3].group(2) == 'nasa'
-	assert matches[3].group(3) == '.gov'
+    assert matches[0] == ('www.', 'google', '.com')
+    assert matches[1] == ('', 'coreyms', '.com')
+    assert matches[2] == ('', 'youtube', '.com')
+    assert matches[3] == ('www.', 'nasa', '.gov')
 
 
 def test_should_replace_group_two_by_group_three_with_re_sub():
-	content = '''
-	https://www.google.com
-	http://coreyms.com
-	https://youtube.com
-	https://www.nasa.gov
-	'''
-	pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
-	
-	# replace group(2) "www." optional by group(3) "domain-name"
-	# the final string is without "http://" and "https://" prefix because this pattern
-	# is out of the group's scope
-	replaced_urls = pattern.sub(r'\2\3', content)
-	print(replaced_urls)
+    content = '''
+    https://www.google.com
+    http://coreyms.com
+    https://youtube.com
+    https://www.nasa.gov
+    '''
+    pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+    
+    # replace group(2) "www." optional by group(3) "domain-name"
+    # the final string is without "http://" and "https://" prefix because this pattern
+    # is out of the group's scope
+    replaced_urls = pattern.sub(r'\2\3', content)
+    print(replaced_urls)
 
-	assert replaced_urls == '''
-	google.com
-	coreyms.com
-	youtube.com
-	nasa.gov
-	'''
+    assert replaced_urls == '''
+    google.com
+    coreyms.com
+    youtube.com
+    nasa.gov
+    '''
 ```
 
 ## sources
