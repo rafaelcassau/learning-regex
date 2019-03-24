@@ -1,8 +1,4 @@
-""" 
-"""
-
-
-import re
+from util import matcher
 
 
 text_to_search = '''
@@ -28,19 +24,8 @@ coreyms.com
 sentence = 'Start a sentence with a middle Start and middle end and then bring it to an end'
 
 
-def matcher(term, text_to_search):
-    # This method is an alias to avoid code duplication
-    print(f'Looking for {term}')
-
-    count = 0
-    pattern = re.compile(term)
-    matches = pattern.finditer(text_to_search)
-    for match in matches:
-        print(match)
-        count += 1
-    
-    print(f'Matched {count} items.\n')
-    return count
+def test_simple_match_method():
+    pass
 
 
 def test_should_match_abc():

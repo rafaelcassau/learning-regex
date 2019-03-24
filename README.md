@@ -34,12 +34,17 @@ these special characters are word boundaries characters
     {3}   - Exact number
     {3,4} - Range of numbers (Minimum, Maximum)
 
-## Methods
+## Pattern object methods
     match()    - Match pattern only at the beginning of the string.
     search()   - Scan through a string, looking for any location where pattern matches. (return only the first match.)
     findall()  - Find all substrings where pattern matches and returns them as a list.
     finditer() - Find all substrings where pattern matches and returns them as an iterator of match objects.
 
+## Match object methods
+    group(int: number = None) - Return the string matched in the group X.
+    start()                   - Return the start position of the group.
+    end()                     - Return the end position of the group.
+    span()                    - Return a tuple containing the (start, end) positions of the match.
 
 ## sources
 
