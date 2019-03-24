@@ -37,19 +37,19 @@ these special characters are word boundaries characters
 ## Pattern object methods
 ```python
 pattern = re.compile(r'my_custom_pattern')
-match(text_to_search)    # Match pattern only at the beginning of the string.
-search(text_to_search)   # Scan through a string, looking for any location where pattern matches. (return only the first match.)
-findall(text_to_search)  # Find all substrings where pattern matches and returns them as a list.
-finditer(text_to_search) # Find all substrings where pattern matches and returns them as an iterator of match objects.
+pattern.match(text_to_search)    # Match pattern only at the beginning of the string.
+pattern.search(text_to_search)   # Scan through a string, looking for any location where pattern matches. (return only the first match.)
+pattern.findall(text_to_search)  # Find all substrings where pattern matches and returns them as a list.
+pattern.finditer(text_to_search) # Find all substrings where pattern matches and returns them as an iterator of match objects.
 ```
 
 ## Match object methods
 ```python
 match = pattern.match('my_custom_string'))
-group(int: number = None) # Return the string matched in the group X.
-start()                   # Return the start position of the group.
-end()                     # Return the end position of the group.
-span()                    # Return a tuple containing the (start, end) positions of the match.
+match.group(int: number = None) # Return the string matched in the group X.
+match.start()                   # Return the start position of the group.
+match.end()                     # Return the end position of the group.
+match.span()                    # Return a tuple containing the (start, end) positions of the match.
 ```
 
 ## sources
