@@ -35,7 +35,7 @@ these special characters are word boundaries characters
     {3,4} - Range of numbers (Minimum, Maximum)
 
 ## Pattern object methods
-```
+```python
 pattern = re.compile(r'my_custom_pattern')
 ```
     match()    - Match pattern only at the beginning of the string.
