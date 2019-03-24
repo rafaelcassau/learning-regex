@@ -49,6 +49,9 @@ pattern.findall('text_to_search')
 
 # Find all substrings where pattern matches and returns them as an iterator of match objects.
 pattern.finditer('text_to_search')
+
+# Find all substrings where pattern matches and replace them by given first parameter.  
+pattern.sub('new_content', 'text_to_search')
 ```
 
 ## Match object methods
