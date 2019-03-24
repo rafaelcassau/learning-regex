@@ -146,40 +146,40 @@ def test_should_match_all_valid_emails():
 
 
 def test_should_match_all_urls_with_re_group():
-	content = '''
-	https://www.google.com
-	http://coreyms.com
-	https://youtube.com
-	https://www.nasa.gov
-	'''
-	pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
-	matches = list(pattern.finditer(content))
+    content = '''
+    https://www.google.com
+    http://coreyms.com
+    https://youtube.com
+    https://www.nasa.gov
+    '''
+    pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+    matches = list(pattern.finditer(content))
 
-	count = 0
-	for match in matches:
-		print(match)
-		count += 1
-	print(f'Matched {count} items.')
+    count = 0
+    for match in matches:
+        print(match)
+        count += 1
+    print(f'Matched {count} items.')
 
-	assert matches[0].group(0) == 'https://www.google.com'  # group(0) always the whole match
-	assert matches[0].group(1) == 'www.'
-	assert matches[0].group(2) == 'google'
-	assert matches[0].group(3) == '.com'
+    assert matches[0].group(0) == 'https://www.google.com'  # group(0) always the whole match
+    assert matches[0].group(1) == 'www.'
+    assert matches[0].group(2) == 'google'
+    assert matches[0].group(3) == '.com'
 
-	assert matches[1].group(0) == 'http://coreyms.com'  # group(0) always the whole match
-	assert matches[1].group(1) == None
-	assert matches[1].group(2) == 'coreyms'
-	assert matches[1].group(3) == '.com'
+    assert matches[1].group(0) == 'http://coreyms.com'  # group(0) always the whole match
+    assert matches[1].group(1) == None
+    assert matches[1].group(2) == 'coreyms'
+    assert matches[1].group(3) == '.com'
 
-	assert matches[2].group(0) == 'https://youtube.com'  # group(0) always the whole match
-	assert matches[2].group(1) == None
-	assert matches[2].group(2) == 'youtube'
-	assert matches[2].group(3) == '.com'
+    assert matches[2].group(0) == 'https://youtube.com'  # group(0) always the whole match
+    assert matches[2].group(1) == None
+    assert matches[2].group(2) == 'youtube'
+    assert matches[2].group(3) == '.com'
 
-	assert matches[3].group(0) == 'https://www.nasa.gov'  # group(0) always the whole match
-	assert matches[3].group(1) == 'www.'
-	assert matches[3].group(2) == 'nasa'
-	assert matches[3].group(3) == '.gov'
+    assert matches[3].group(0) == 'https://www.nasa.gov'  # group(0) always the whole match
+    assert matches[3].group(1) == 'www.'
+    assert matches[3].group(2) == 'nasa'
+    assert matches[3].group(3) == '.gov'
 
 
 def test_should_match_all_urls_with_re_group_and_findall_method():
@@ -223,20 +223,20 @@ def test_should_replace_group_two_by_group_three_with_re_sub():
 
 if __name__ == '__main__':
     # file
-	test_should_match_phone_numbers_without_9_prefix()
-	test_should_match_phone_numbers_with_9_prefix()
-	test_should_match_phone_numbers()
-	test_should_match_phone_numbers_ends_with_0()
-	test_should_match_phone_numbers_ends_with_1()
-	test_should_match_phone_numbers_ends_with_0_or_1()
+    test_should_match_phone_numbers_without_9_prefix()
+    test_should_match_phone_numbers_with_9_prefix()
+    test_should_match_phone_numbers()
+    test_should_match_phone_numbers_ends_with_0()
+    test_should_match_phone_numbers_ends_with_1()
+    test_should_match_phone_numbers_ends_with_0_or_1()
 
-	# unit
-	test_should_match_all_words_ends_with_at_except_bat()
-	test_should_match_prefix_Mrdot_mr()
-	test_should_match_prefix_Mrdot_Mr_and_complete_first_name()
-	test_should_match_all_prefix_with_regex_groups()
-	test_should_match_all_prefix_with_regex_groups_more_readble()
-	test_should_match_all_valid_emails()
-	test_should_match_all_urls_with_re_group()
-	test_should_match_all_urls_with_re_group_and_findall_method()
-	test_should_replace_group_two_by_group_three_with_re_sub()
+    # unit
+    test_should_match_all_words_ends_with_at_except_bat()
+    test_should_match_prefix_Mrdot_mr()
+    test_should_match_prefix_Mrdot_Mr_and_complete_first_name()
+    test_should_match_all_prefix_with_regex_groups()
+    test_should_match_all_prefix_with_regex_groups_more_readble()
+    test_should_match_all_valid_emails()
+    test_should_match_all_urls_with_re_group()
+    test_should_match_all_urls_with_re_group_and_findall_method()
+    test_should_replace_group_two_by_group_three_with_re_sub()
