@@ -44,7 +44,7 @@ pattern = re.compile(r'my_custom_pattern')
     finditer() - Find all substrings where pattern matches and returns them as an iterator of match objects.
 
 ## Match object methods
-```
+```python
 match = pattern.match('my_custom_string'))
 ```
     group(int: number = None) - Return the string matched in the group X.
