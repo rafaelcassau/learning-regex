@@ -1,3 +1,4 @@
+import re
 from util import matcher
 
 
@@ -24,8 +25,131 @@ coreyms.com
 sentence = 'Start a sentence with a middle Start and middle end and then bring it to an end'
 
 
+# pattern.match
+
+
 def test_simple_match_method():
-    pass
+    pattern = re.compile(r'string')
+    match = pattern.match('string, that it is')
+
+    print(match)
+    assert match.group() == 'string'
+    assert match.span() == (0, 6)
+    assert match.start() == 0
+    assert match.end() == 6
+
+
+def test_simple_match_method_does_not_match_in_the_middle_of_text():
+    pattern = re.compile(r'string')
+    match = pattern.match('that it is a string')
+
+    print(match)
+    assert match is None
+
+
+# pattern.search
+
+
+def test_simple_search_method():
+    pattern = re.compile(r'string')
+    match = pattern.search('string, that it is')
+
+    print(match)
+    assert match.group() == 'string'
+    assert match.span() == (0, 6)
+    assert match.start() == 0
+    assert match.end() == 6
+
+
+def test_simple_search_method_does_match_in_the_middle_of_text():
+    pattern = re.compile(r'string')
+    match = pattern.search('that it is a string')
+
+    print(match)
+    assert match.group() == 'string'
+    assert match.span() == (13, 19)
+    assert match.start() == 13
+    assert match.end() == 19
+
+
+def test_simple_search_method_does_match_in_the_middle_of_text_just_one_time():
+    pattern = re.compile(r'string')
+    match = pattern.search('that it is a string, string it is')
+
+    print(match)
+    assert match.group() == 'string'
+    assert match.span() == (13, 19)
+    assert match.start() == 13
+    assert match.end() == 19
+
+
+# pattern.findall
+
+
+def test_simple_findall_method_does_match_in_the_whole_text():
+    pattern = re.compile(r'string')
+    matches = pattern.findall('that it is a string, string it is')
+    
+    print(matches)
+    assert matches == ['string', 'string']
+
+
+def test_simple_findall_method_does_match_in_the_whole_text_not_found():
+    pattern = re.compile(r'string')
+    matches = pattern.findall('that it is a STRING, STRING it is')
+    
+    print(matches)
+    assert matches == []
+
+
+def test_simple_findall_method_does_match_in_the_whole_text_with_ignore_case_flag():
+    pattern = re.compile(r'string', re.IGNORECASE)
+    matches = pattern.findall('that it is a string, string it is')
+    
+    print(matches)
+    assert matches == ['string', 'string']
+
+
+# pattern.finditer
+
+
+def test_simple_finditer_method_does_match_in_the_whole_text():
+    pattern = re.compile(r'string')
+    matches = pattern.finditer('that it is a string, string it is')
+    
+    count = 0
+    for match in matches:
+        print(match)
+        count += 1
+
+    assert count == 2
+
+
+def test_simple_finditer_method_does_match_in_the_whole_text_not_found():
+    pattern = re.compile(r'string')
+    matches = pattern.finditer('that it is a STRING, STRING it is')
+    
+    count = 0
+    for match in matches:
+        print(match)
+        count += 1
+
+    assert count == 0
+
+
+def test_simple_finditer_method_does_match_in_the_whole_text_with_ignore_case_flag():
+    pattern = re.compile(r'string', re.IGNORECASE)
+    matches = pattern.finditer('that it is a string, string it is')
+    
+    count = 0
+    for match in matches:
+        print(match)
+        count += 1
+
+    assert count == 2
+
+
+# matcher util method
 
 
 def test_should_match_abc():
@@ -134,6 +258,26 @@ def test_simple_should_match_exactly_social_number_with_score():
 
 
 if __name__ == '__main__':
+    # pattern.match
+    test_simple_match_method()
+    test_simple_match_method_does_not_match_in_the_middle_of_text()
+
+    # pattern.search
+    test_simple_search_method()
+    test_simple_search_method_does_match_in_the_middle_of_text()
+    test_simple_search_method_does_match_in_the_middle_of_text_just_one_time()
+
+    # pattern.findall
+    test_simple_findall_method_does_match_in_the_whole_text()
+    test_simple_findall_method_does_match_in_the_whole_text_not_found()
+    test_simple_findall_method_does_match_in_the_whole_text_with_ignore_case_flag()
+
+    # pattern.finditer
+    test_simple_finditer_method_does_match_in_the_whole_text()
+    test_simple_finditer_method_does_match_in_the_whole_text_not_found()
+    test_simple_finditer_method_does_match_in_the_whole_text_with_ignore_case_flag()
+
+    # matcher util method
     test_should_match_abc()
     test_should_match_ABC()
     test_should_match_url()
@@ -159,7 +303,5 @@ if __name__ == '__main__':
 
 # TODO
 # findall
-# match
-# search
 # sub
 # flags re.compile(r'start', re.IGNORECASE)
