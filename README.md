@@ -38,20 +38,35 @@ these special characters are word boundaries characters
 ```python
 pattern = re.compile(r'my_custom_pattern')
 
-pattern.match(text_to_search)    # Match pattern only at the beginning of the string.
-pattern.search(text_to_search)   # Scan through a string, looking for any location where pattern matches. (return only the first match.)
-pattern.findall(text_to_search)  # Find all substrings where pattern matches and returns them as a list.
-pattern.finditer(text_to_search) # Find all substrings where pattern matches and returns them as an iterator of match objects.
+# Match pattern only at the beginning of the string.
+pattern.match('text_to_search')
+
+# Scan through a string, looking for any location where pattern matches. (return only the first match.)
+pattern.search('text_to_search')
+
+# Find all substrings where pattern matches and returns them as a list.
+pattern.findall('text_to_search')
+
+# Find all substrings where pattern matches and returns them as an iterator of match objects.
+pattern.finditer('text_to_search')
 ```
 
 ## Match object methods
 ```python
 match = pattern.match('my_custom_string'))
 
-match.group(int: number = None) # Return the string matched in the group X.
-match.start()                   # Return the start position of the group.
-match.end()                     # Return the end position of the group.
-match.span()                    # Return a tuple containing the (start, end) positions of the match.
+# Return the string matched in the group, if any group was give the default return will be the
+# whole match "group(1)"
+match.group(int: number = 1)
+
+# Return the start position of the group.
+match.start()
+
+# Return the end position of the group.
+match.end()
+
+# Return a tuple containing the (start, end) positions of the match.
+match.span()
 ```
 
 ## sources
