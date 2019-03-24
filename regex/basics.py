@@ -149,6 +149,48 @@ def test_simple_finditer_method_does_match_in_the_whole_text_with_ignore_case_fl
     assert count == 2
 
 
+## pattern.sub
+
+
+def should_remove_all_special_characteres_with_re_sub_method():
+    content = '''
+    0 1 2 3 4 5 6 7 8 9 0 \n
+    a,b,c,d,e,f,g,h,i,j,k \t
+    0-1-2-3-4-5-6-7-8-9-0 \n
+    '''
+    pattern = re.compile(r'\s|[,-]')  # it is equal to re.compile(r'\W')
+    cleaned_content = pattern.sub('', content)
+
+    print(cleaned_content)
+    assert cleaned_content == '01234567890abcdefghijk01234567890'
+
+
+def should_remove_all_alphabetic_and_special_characteres_with_re_sub_method():
+    content = '''
+    0 1 2 3 4 5 6 7 8 9 0 \n
+    a,b,c,d,e,f,g,h,i,j,k \t
+    0-1-2-3-4-5-6-7-8-9-0 \n
+    '''
+    pattern = re.compile(r'\s|[a-zA-Z-,]')  # it is equal to re.compile(r'\D')
+    cleaned_content = pattern.sub('', content)
+
+    print(cleaned_content)
+    assert cleaned_content == '0123456789001234567890'
+
+
+def should_remove_all_numeric_and_special_characteres_with_re_sub_method():
+    content = '''
+    0 1 2 3 4 5 6 7 8 9 0 \n
+    a,b,c,d,e,f,g,h,i,j,k \t
+    0-1-2-3-4-5-6-7-8-9-0 \n
+    '''
+    pattern = re.compile(r'\s|[0-9-,]')  # it is equal to re.compile(r'\d|[-,]')
+    cleaned_content = pattern.sub('', content)
+
+    print(cleaned_content)
+    assert cleaned_content == 'abcdefghijk'
+
+
 # matcher util method
 
 
@@ -276,6 +318,11 @@ if __name__ == '__main__':
     test_simple_finditer_method_does_match_in_the_whole_text()
     test_simple_finditer_method_does_match_in_the_whole_text_not_found()
     test_simple_finditer_method_does_match_in_the_whole_text_with_ignore_case_flag()
+
+    # pattern.sub
+    should_remove_all_special_characteres_with_re_sub_method()
+    should_remove_all_alphabetic_and_special_characteres_with_re_sub_method()
+    should_remove_all_numeric_and_special_characteres_with_re_sub_method()
 
     # matcher util method
     test_should_match_abc()
