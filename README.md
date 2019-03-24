@@ -6,12 +6,12 @@ The purpouse this repository is to maintain some python common regex examples
 
 ## Matches
     .     - Any character except new line
-    \d    - Digit (0-9)
-    \D    - Not a digit (0-9)
-    \w    - Word character (a-z, A-Z, 0-9, _)
-    \W    - Not a word character
-    \s    - Whitespace (space, tab, newline)
-    \S    - Not whitespace (space, tab, newline)
+    \d    - Digits [0-9]
+    \D    - Not a digit [^0-9]
+    \w    - Word character [a-zA-Z0-9_]
+    \W    - Not a word character [^a-zA-Z0-9_]
+    \s    - Whitespace (space, tab, newline) [\t\n\r\f\v]
+    \S    - Not whitespace (space, tab, newline) [^ \t\n\r\f\v]
 
 ## Anchors
 Anchors doesn't match any characters, but identify some positions like
@@ -34,7 +34,15 @@ these special characters are word boundaries characters
     {3}   - Exact number
     {3,4} - Range of numbers (Minimum, Maximum)
 
+## Methods
+    match()    - Match pattern only at the beginning of the string.
+    search()   - Scan through a string, looking for any location where pattern matches. (return only the first match.)
+    findall()  - Find all substrings where pattern matches and returns them as a list.
+    finditer() - Find all substrings where pattern matches and returns them as an iterator of match objects.
+
 
 ## sources
+
+https://docs.python.org/3/howto/regex.html
 
 https://youtu.be/K8L6KVGG-7o (Corey Schafer)

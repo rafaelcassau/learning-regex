@@ -12,6 +12,7 @@ def read_file():
 
 
 def matcher(term, text_to_search):
+    # This method is an alias to avoid code duplication
     print(f'Looking for {term}')
     
     count = 0
@@ -26,36 +27,66 @@ def matcher(term, text_to_search):
 
 
 def test_should_match_phone_numbers_without_9_prefix():
+    """
+    +55 (16) 1122-1213
+    ...
+    """
     content = read_file()
     match_count = matcher(r'\+\d{2}\s\(\d{2}\)\s\d{4}[-.]\d{4}', content)
     assert match_count == 50
 
 
 def test_should_match_phone_numbers_with_9_prefix():
+    """
+    +55 (16) 91122-1213
+    ...
+    """
     content = read_file()
     match_count = matcher(r'\+\d{2}\s\(\d{2}\)\s\d{5}[-.]\d{4}', content)
     assert match_count == 50
 
 
 def test_should_match_phone_numbers():
+    """
+    +55 (16) 1122-1213
+    +55 (16) 91122-1213
+    ...
+    """
     content = read_file()
     match_count = matcher(r'\+\d{2}\s\(\d{2}\)\s\d{4,5}[-.]\d{4}', content)
     assert match_count == 100
 
 
 def test_should_match_phone_numbers_ends_with_0():
+    """
+    +55 (16) 1122-1210
+    +55 (16) 91122-1210
+    ...
+    """
     content = read_file()
     match_count = matcher(r'\+\d{2}\s\(\d{2}\)\s\d{4,5}[-.]\d{3}[0]', content)
     assert match_count == 10
 
 
 def test_should_match_phone_numbers_ends_with_1():
+    """
+    +55 (16) 1122-1211
+    +55 (16) 91122-1211
+    ...
+    """
     content = read_file()
     match_count = matcher(r'\+\d{2}\s\(\d{2}\)\s\d{4,5}[-.]\d{3}[0]', content)
     assert match_count == 10
 
 
 def test_should_match_phone_numbers_ends_with_0_or_1():
+    """
+    +55 (16) 1122-1210
+    +55 (16) 91122-1210
+    +55 (16) 1122-1211
+    +55 (16) 91122-1211
+    ...
+    """
     content = read_file()
     match_count = matcher(r'\+\d{2}\s\(\d{2}\)\s\d{4,5}[-.]\d{3}[01]', content)
     assert match_count == 20
