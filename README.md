@@ -37,6 +37,7 @@ these special characters are word boundaries characters
 ## Pattern object methods
 ```python
 pattern = re.compile(r'my_custom_pattern')
+
 pattern.match(text_to_search)    # Match pattern only at the beginning of the string.
 pattern.search(text_to_search)   # Scan through a string, looking for any location where pattern matches. (return only the first match.)
 pattern.findall(text_to_search)  # Find all substrings where pattern matches and returns them as a list.
@@ -46,6 +47,7 @@ pattern.finditer(text_to_search) # Find all substrings where pattern matches and
 ## Match object methods
 ```python
 match = pattern.match('my_custom_string'))
+
 match.group(int: number = None) # Return the string matched in the group X.
 match.start()                   # Return the start position of the group.
 match.end()                     # Return the end position of the group.
